@@ -26,43 +26,7 @@ class ClubFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val clubList: ArrayList<Club> = arrayListOf(
-            Club(
-                name = "Arsenal",
-                imageLogo = R.drawable.ic_launcher_background,
-                playerList = arrayListOf(
-                    Player("a"), Player("b"), Player("c"), Player("d"), Player("e")
-                )
-            ),
-            Club(
-                name = "Aston Villa",
-                imageLogo = R.drawable.ic_launcher_background,
-                playerList = arrayListOf(
-                    Player("f"), Player("g"), Player("h"), Player("i"), Player("j")
-                )
-            ),
-            Club(
-                name = "Chealsea",
-                imageLogo = R.drawable.ic_launcher_background,
-                playerList = arrayListOf(
-                    Player("k"), Player("l"), Player("m"), Player("n"), Player("o")
-                )
-            ),
-            Club(
-                name = "Everton",
-                imageLogo = R.drawable.ic_launcher_background,
-                playerList = arrayListOf(
-                    Player("p"), Player("q"), Player("r"), Player("s"), Player("t")
-                )
-            ),
-            Club(
-                name = "Fullham",
-                imageLogo = R.drawable.ic_launcher_background,
-                playerList = arrayListOf(
-                    Player("u"), Player("v"), Player("w"), Player("x"), Player("y")
-                )
-            ),
-        )
+        val clubList: ArrayList<Club> = club()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_club, container, false)
         viewModel = ViewModelProvider(this, ClubFragmentViewModelFactory(listClub = clubList)).get(
             ClubFragmentViewModel::class.java
@@ -75,6 +39,37 @@ class ClubFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRvClub()
+    }
+
+    private fun club(): ArrayList<Club> {
+        val club: ArrayList<Club> = arrayListOf()
+        val clubArray: Array<String> = resources.getStringArray(R.array.club)
+        val playerClubList: ArrayList<Array<String>> = arrayListOf(
+            resources.getStringArray(R.array.ArsenalPlayer),
+            resources.getStringArray(R.array.AstonPlayer),
+            resources.getStringArray(R.array.ChelseaPlayer),
+            resources.getStringArray(R.array.EvertonPlayer),
+            resources.getStringArray(R.array.FullhamPlayer),
+        )
+        val logoClubList = arrayListOf(
+            R.drawable.arsenal,
+            R.drawable.aston_villa,
+            R.drawable.chelsea,
+            R.drawable.everton,
+            R.drawable.fullham,
+        )
+        clubArray.forEachIndexed { index, name ->
+            val playerList: ArrayList<Player> = arrayListOf()
+            for (player in playerClubList[index]) {
+                playerList.add(
+                    Player(name = player)
+                )
+            }
+            club.add(
+                Club(name = name, imageLogo = logoClubList[index], playerList = playerList)
+            )
+        }
+        return club
     }
 
     private fun setupRvClub() {

@@ -1,5 +1,45 @@
 <resources>
     <string name="app_name">quiz2</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="club">
+        <item>Arsenal</item>
+        <item>Aston Villa</item>
+        <item>Chelsea</item>
+        <item>Everton</item>
+        <item>Fullham</item>
+    </string-array>
+    <string-array name="ArsenalPlayer">
+        <item>Mesut Özil</item>
+        <item>Pierre-Emerick Aubameyang</item>
+        <item>Thomas Partey</item>
+        <item>Willian</item>
+        <item>Gabriel</item>
+    </string-array>
+    <string-array name="AstonPlayer">
+        <item>Jack Grealish</item>
+        <item>Ollie Watkins</item>
+        <item>Trézéguet</item>
+        <item>Emiliano Martínez</item>
+        <item>Ross Barkley</item>
+    </string-array>
+    <string-array name="ChelseaPlayer">
+        <item>Hakim Ziyech</item>
+        <item>Timo Werner</item>
+        <item>Kai Havertz</item>
+        <item>Christian Pulisic</item>
+        <item>Edouard Mendy</item>
+    </string-array>
+    <string-array name="EvertonPlayer">
+        <item>James Rodríguez</item>
+        <item>Richarlison</item>
+        <item>Dominic Calvert-Lewin</item>
+        <item>Allan</item>
+        <item>Abdoulaye Doucouré</item>
+    </string-array>
+    <string-array name="FullhamPlayer">
+        <item>Aleksandar Mitrović</item>
+        <item>Alphonse Areola</item>
+        <item>Aboubakar Kamara</item>
+        <item>Joe Bryan</item>
+        <item>Neeskens Kebano</item>
+    </string-array>
 </resources>
