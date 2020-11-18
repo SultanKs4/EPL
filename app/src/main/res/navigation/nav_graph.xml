@@ -18,10 +18,18 @@
         android:id="@+id/clubFragment"
         android:name="com.natlus.quiz2.fragments.ClubFragment"
         android:label="fragment_club"
-        tools:layout="@layout/fragment_club" />
+        tools:layout="@layout/fragment_club" >
+        <action
+            android:id="@+id/action_clubFragment_to_clubDetailFragment"
+            app:destination="@id/clubDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clubDetailFragment"
         android:name="com.natlus.quiz2.fragments.ClubDetailFragment"
         android:label="fragment_club_detail"
-        tools:layout="@layout/fragment_club_detail" />
+        tools:layout="@layout/fragment_club_detail" >
+        <argument
+            android:name="club"
+            app:argType="com.natlus.quiz2.models.Club" />
+    </fragment>
 </navigation>

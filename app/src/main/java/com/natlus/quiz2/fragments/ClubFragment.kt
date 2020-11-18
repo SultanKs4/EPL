@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.natlus.quiz2.R
 import com.natlus.quiz2.databinding.FragmentClubBinding
 import com.natlus.quiz2.models.Club
+import com.natlus.quiz2.models.Player
 import com.natlus.quiz2.recyclerview.ClubAdapter
+import com.natlus.quiz2.recyclerview.OnItemClubListener
 import com.natlus.quiz2.viewmodel.ClubFragmentViewModel
 import com.natlus.quiz2.viewmodel.ClubFragmentViewModelFactory
 
@@ -28,35 +31,35 @@ class ClubFragment : Fragment() {
                 name = "Arsenal",
                 imageLogo = R.drawable.ic_launcher_background,
                 playerList = arrayListOf(
-                    "a", "b", "c", "d", "e", "f", "g"
+                    Player("a"), Player("b"), Player("c"), Player("d"), Player("e")
                 )
             ),
             Club(
                 name = "Aston Villa",
                 imageLogo = R.drawable.ic_launcher_background,
                 playerList = arrayListOf(
-                    "a", "b", "c", "d", "e", "f", "g"
+                    Player("f"), Player("g"), Player("h"), Player("i"), Player("j")
                 )
             ),
             Club(
                 name = "Chealsea",
                 imageLogo = R.drawable.ic_launcher_background,
                 playerList = arrayListOf(
-                    "a", "b", "c", "d", "e", "f", "g"
+                    Player("k"), Player("l"), Player("m"), Player("n"), Player("o")
                 )
             ),
             Club(
                 name = "Everton",
                 imageLogo = R.drawable.ic_launcher_background,
                 playerList = arrayListOf(
-                    "a", "b", "c", "d", "e", "f", "g"
+                    Player("p"), Player("q"), Player("r"), Player("s"), Player("t")
                 )
             ),
             Club(
                 name = "Fullham",
                 imageLogo = R.drawable.ic_launcher_background,
                 playerList = arrayListOf(
-                    "a", "b", "c", "d", "e", "f", "g"
+                    Player("u"), Player("v"), Player("w"), Player("x"), Player("y")
                 )
             ),
         )
@@ -78,10 +81,22 @@ class ClubFragment : Fragment() {
         val recyclerView = binding.rvClub
         val gridLayoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = gridLayoutManager
-        val adapter = ClubAdapter()
+        val adapter = ClubAdapter(itemClubListener = object : OnItemClubListener {
+            override fun onClubClicked(club: Club) {
+                viewModel.onClubClicked(club)
+            }
+        })
         recyclerView.adapter = adapter
         viewModel.listClubLiveData.observe(
             viewLifecycleOwner,
             { value -> adapter.clubList = value })
+        viewModel.navigateToDetailLiveData.observe(viewLifecycleOwner, { value ->
+            if (value != null) {
+                val action =
+                    ClubFragmentDirections.actionClubFragmentToClubDetailFragment(club = value)
+                findNavController().navigate(action)
+                viewModel.onMovieDetailNavigated()
+            }
+        })
     }
 }

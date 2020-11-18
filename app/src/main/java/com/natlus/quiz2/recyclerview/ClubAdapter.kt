@@ -6,19 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.natlus.quiz2.databinding.ItemClubBinding
 import com.natlus.quiz2.models.Club
 
-class ClubAdapter(clubList: List<Club>? = arrayListOf()) :
+class ClubAdapter() :
     RecyclerView.Adapter<ClubAdapter.ClubViewHolder>() {
-
-    var clubList = clubList
+    private lateinit var itemClubListener: OnItemClubListener
+    var clubList: List<Club>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+    constructor(itemClubListener: OnItemClubListener) : this() {
+        this.itemClubListener = itemClubListener
+    }
+
     class ClubViewHolder(private val binding: ItemClubBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(club: Club?) {
+        fun bind(club: Club?, itemClubListener: OnItemClubListener) {
             binding.club = club
+            binding.clickListener = itemClubListener
             binding.executePendingBindings()
         }
     }
@@ -30,7 +35,7 @@ class ClubAdapter(clubList: List<Club>? = arrayListOf()) :
     }
 
     override fun onBindViewHolder(holder: ClubViewHolder, position: Int) {
-        holder.bind(clubList?.get(position))
+        holder.bind(clubList?.get(position), itemClubListener)
     }
 
     override fun getItemCount(): Int {
